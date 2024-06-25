@@ -64,8 +64,11 @@
         body {
             font: normal 400 16px "Roboto", sans-serif;
             color: #333333;
-            margin-top: 1em;
-            margin-bottom: 3em;
+            margin-top: 0em;
+            margin-bottom: 0em;
+            padding: 0em 0em;
+            background-color: #f8f9fa;
+            align-self: center;
         }
 
         .main-header .title {
@@ -73,32 +76,8 @@
         }
 
         .container {
-            padding: 0 15px;
-            margin: 0 auto;
-        }
-
-        @media (min-width: 576px) {
-            .container {
-                max-width: 540px;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .container {
-                max-width: 720px;
-            }
-        }
-
-        @media (min-width: 992px) {
-            .container {
-                max-width: 960px;
-            }
-        }
-
-        @media (min-width: 1200px) {
-            .container {
-                max-width: 1140px;
-            }
+            padding: 0 0px;
+            margin: 0 0;
         }
 
         #main-view *,
@@ -119,14 +98,14 @@
 
         @media (min-width: 768px) {
             #main-view .wrapper .column-1 {
-                flex: 0 0 66.666667%;
-                max-width: 66.666667%;
-                padding-right: 30px;
+                flex: 0 0 100.00%;
+                max-width: 100.00%;
+                padding-right: 0px;
             }
 
             #main-view .wrapper .column-2 {
-                flex: 0 0 33.333333%;
-                max-width: 33.333333%;
+                flex: 0 0 0%;
+                max-width: 0%;
             }
         }
 
@@ -136,7 +115,7 @@
 
         .embed-responsive {
             position: relative;
-            display: block;
+            display: flex;
             width: 100%;
             padding: 0;
             overflow: hidden;
@@ -156,7 +135,7 @@
             display: block;
             width: 100%;
             height: calc(2.25em + 2px);
-            padding: 0.375em 0.75em;
+            padding: 0.0em 0.0em;
             font-size: 1em;
             line-height: 1.5em;
             color: #495057;
@@ -170,7 +149,7 @@
             text-align: center;
             white-space: nowrap;
             border: 1px solid transparent;
-            padding: 0.375em 0.75em;
+            padding: 0.0em 0.0em;
             font-size: 1em;
             line-height: 1.5em;
             border-radius: 0.25em;
@@ -202,10 +181,11 @@
             width: 100%;
             height: 100%;
             border: 0;
+            padding-bottom: 42%;
         }
 
         #main-view .embed-responsive-16by9::before {
-            padding-top: 56.25%;
+            padding-top: 100%;
         }
 
         #main-view #level {
@@ -217,14 +197,14 @@
         #graph {
             max-width: 100%;
             overflow: hidden;
-            margin: 3em auto;
+            margin: 0em 0em;
             border: 1px solid #eee;
         }
 
         #chart_container {
             position: relative;
-            margin: 3em auto;
-            padding-left: 20px;
+            margin: 0em 0em;
+            padding-left: 0px;
             max-width: 100%;
         }
 
@@ -261,93 +241,65 @@
 
 <body>
     <div class="container">
-        <header class="main-header">
-            <h1 class="title">P2P Media Loader Demo</h1>
-            Git: <a href="https://github.com/novage/p2p-media-loader">https://github.com/novage/p2p-media-loader</a>
-            <hr />
-        </header>
-
         <div id="main-view">
-            <div id="error-webrtc-data-channels" class="hide">
-                WebRTC Data Channels API is not supported by your browser. P2P disabled.<br />
-                Read more at
-                <a href="http://iswebrtcreadyyet.com/legacy.html" target="_blank">Is WebRTC ready yet?</a>.
-                <hr />
+            <div class="column-1">
+                <div id="video_container"></div>
+                <div id="chart_container" class="hide">
+                    <div id="legend"></div>
+                    <div id="legend-totals"></div>
+                    <div id="y_axis"></div>
+                    <div id="chart"></div>
+                </div>
             </div>
-            <div id="error-hls-js" class="hide">
-                Your browser doesn't support hls.js engine. P2P disabled.<br />
-                Read more at
-                <a href="https://en.wikipedia.org/wiki/Media_Source_Extensions" target="_blank">Media Source
-                    Extensions</a>.
-                <hr />
-            </div>
-            <div id="error-shakaplayer" class="hide">
-                Your browser doesn't support Shaka Player engine. P2P disabled.<br />
-                Read more at
-                <a href="https://en.wikipedia.org/wiki/Media_Source_Extensions" target="_blank">Media Source
-                    Extensions</a>.
-                <hr />
-            </div>
-            <div class="wrapper">
-                <div class="column-1">
-                    <div id="video_container"></div>
-                    <div id="chart_container">
-                        <div id="legend"></div>
-                        <div id="legend-totals"></div>
-                        <div id="y_axis"></div>
-                        <div id="chart"></div>
+            <div class="hide">
+                <form id="videoUrlForm" class="hide">
+                    <div class="form-group">
+                        <label for="url">Video URL<span id="https-only" class="hide"> (HTTPS only)</span>:</label>
+                        <!-- HV_MODIFY start -->
+                        <!-- <input
+                                type="text"
+                                class="form-control"
+                                id="url"
+                                name="url"
+                                placeholder="Please enter video url"
+                                required
+                                value="https://akamai-axtest.akamaized.net/routes/lapd-v1-acceptance/www_c4/Manifest.m3u8"
+                            /> -->
+                        <input type="text" class="form-control" id="url" name="url" placeholder="Please enter video url"
+                            required
+                            value="https://cd-live-stream.news.cctvplus.com/live/smil:CHANNEL1.smil/playlist.m3u8" />
+                        <!-- HV_MODIFY end -->
                     </div>
-                </div>
-                <div class="column-2">
-                    <form id="videoUrlForm">
-                        <div class="form-group">
-                            <label for="url">Video URL<span id="https-only" class="hide"> (HTTPS only)</span>:</label>
-                            <!-- HV_MODIFY start -->
-                            <!-- <input
-                                    type="text"
-                                    class="form-control"
-                                    id="url"
-                                    name="url"
-                                    placeholder="Please enter video url"
-                                    required
-                                    value="https://akamai-axtest.akamaized.net/routes/lapd-v1-acceptance/www_c4/Manifest.m3u8"
-                                /> -->
-                            <input type="text" class="form-control" id="url" name="url"
-                                placeholder="Please enter video url" required
-                                value="https://cd-live-stream.news.cctvplus.com/live/smil:CHANNEL1.smil/playlist.m3u8" />
-                            <!-- HV_MODIFY end -->
-                        </div>
-                        <div class="form-group">
-                            <label for="type">Player:</label>
-                            <select class="form-control" id="type" name="type">
-                                <optgroup label="Hls.js P2P Engine (HLS only)">
-                                    <option value="clappr" selected>Clappr</option>
-                                    <option value="hlsjs">Hls.js</option>
-                                    <option value="flowplayer">Flowplayer</option>
-                                    <option value="mediaelement">MediaElement</option>
-                                    <option value="videojs-contrib-hlsjs">VideoJs-Contrib-HlsJs</option>
-                                    <option value="videojs-hlsjs-plugin">VideoJs-HlsJs-Plugin</option>
-                                    <option value="jwplayer">JWPlayer</option>
-                                    <option value="dplayer">DPlayer</option>
-                                    <option value="plyr">Plyr</option>
-                                </optgroup>
-                                <optgroup label="Shaka P2P Engine (HLS and DASH)">
-                                    <option value="shakaplayer">Shaka Player</option>
-                                    <option value="clappr-shaka">Clappr (DASH only)</option>
-                                    <option value="dplayer-shaka">DPlayer</option>
-                                    <option value="plyr-shaka">Plyr</option>
-                                </optgroup>
-                            </select>
-                        </div>
-                        <button type="submit" class="form-button" onclick="this.form.target=''">Apply</button>
-                        <button type="submit" class="form-button" onclick="this.form.target='_blank'">
-                            Create new peer
-                        </button>
-                    </form>
-                    <div id="graph"></div>
-                    <h3>Trackers:</h3>
-                    <div id="announce"></div>
-                </div>
+                    <div class="form-group">
+                        <label for="type">Player:</label>
+                        <select class="form-control" id="type" name="type">
+                            <optgroup label="Hls.js P2P Engine (HLS only)">
+                                <option value="clappr" selected>Clappr</option>
+                                <option value="hlsjs">Hls.js</option>
+                                <option value="flowplayer">Flowplayer</option>
+                                <option value="mediaelement">MediaElement</option>
+                                <option value="videojs-contrib-hlsjs">VideoJs-Contrib-HlsJs</option>
+                                <option value="videojs-hlsjs-plugin">VideoJs-HlsJs-Plugin</option>
+                                <option value="jwplayer">JWPlayer</option>
+                                <option value="dplayer">DPlayer</option>
+                                <option value="plyr">Plyr</option>
+                            </optgroup>
+                            <optgroup label="Shaka P2P Engine (HLS and DASH)">
+                                <option value="shakaplayer">Shaka Player</option>
+                                <option value="clappr-shaka">Clappr (DASH only)</option>
+                                <option value="dplayer-shaka">DPlayer</option>
+                                <option value="plyr-shaka">Plyr</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <button type="submit" class="form-button" onclick="this.form.target=''">Apply</button>
+                    <button type="submit" class="form-button" onclick="this.form.target='_blank'">
+                        Create new peer
+                    </button>
+                </form>
+                <div id="graph"></div>
+                <h3>Trackers:</h3>
+                <div id="announce"></div>
             </div>
         </div>
 
@@ -506,7 +458,7 @@
                 },
             },
                             // HV_MODIFY end
-                        };
+                    };
 
             if (this.trackers) {
                 config.loader.trackerAnnounce = this.trackers;
@@ -623,9 +575,9 @@
 
             this.refreshChart();
             this.refreshGraph();
-                    }
+                }
 
-                    async initHlsJsPlayer() {
+                async initHlsJsPlayer() {
                 if (!Hls.isSupported()) {
                     return;
                 }
@@ -659,7 +611,7 @@
                 });
             }
 
-                    async initClapprPlayer(isShaka) {
+                async initClapprPlayer(isShaka) {
                 const scriptsPromise = (async () => {
                     await loadScript("https://cdn.jsdelivr.net/npm/clappr@latest");
                     await loadScript(
@@ -720,7 +672,7 @@
                 }
             }
 
-                    async initMediaElementPlayer() {
+                async initMediaElementPlayer() {
                 const scriptPromise = loadScript(
                     "https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.9/mediaelement-and-player.min.js"
                 );
@@ -764,7 +716,7 @@
                 player.play();
             }
 
-                    async initFlowplayerPlayer() {
+                async initFlowplayerPlayer() {
                 const scriptPromise = loadScript("https://releases.flowplayer.org/7.2.7/flowplayer.min.js");
                 loadStyle("https://releases.flowplayer.org/7.2.7/skin/skin.css");
 
@@ -801,7 +753,7 @@
                 }
             }
 
-                    async initVideoJsContribHlsJsPlayer() {
+                async initVideoJsContribHlsJsPlayer() {
                 const scriptPromise = (async () => {
                     await loadScript("https://vjs.zencdn.net/7.6.0/video.js");
                     await loadScript("https://cdn.jsdelivr.net/npm/videojs-contrib-hls.js@latest");
@@ -851,7 +803,7 @@
                 });
             }
 
-                    async initVideoJsHlsJsPlugin() {
+                async initVideoJsHlsJsPlugin() {
                 const scriptPromise = await(async () => {
                     await loadScript("https://vjs.zencdn.net/7.6.0/video.js");
                     await Promise.all([
@@ -905,7 +857,7 @@
                 });
             }
 
-                    async initJwPlayer() {
+                async initJwPlayer() {
                 const scriptPromise = await Promise.all([
                     loadScript("https://content.jwplatform.com/libraries/aG3IMhIy.js"),
                     loadScript(
@@ -936,7 +888,7 @@
                 }
             }
 
-                    async initDPlayerHlsJs() {
+                async initDPlayerHlsJs() {
                 if (!Hls.isSupported()) {
                     return;
                 }
@@ -972,7 +924,7 @@
                 });
             }
 
-                    async initDPlayerShaka() {
+                async initDPlayerShaka() {
                 if (!shaka.Player.isBrowserSupported()) {
                     return;
                 }
@@ -1039,7 +991,7 @@
                 player.load(this.videoUrl);
             }
 
-                    async initPlyrPlayerHlsJs() {
+                async initPlyrPlayerHlsJs() {
                 if (!Hls.isSupported()) {
                     return;
                 }
@@ -1084,7 +1036,7 @@
                 });
             }
 
-                    async initPlyrPlayerShaka() {
+                async initPlyrPlayerShaka() {
                 if (!shaka.Player.isBrowserSupported()) {
                     return;
                 }
@@ -1498,7 +1450,7 @@
                     },
                 };
             }
-                }
+            }
 
             window.demo = new DemoApp();
             window.demo.init();
